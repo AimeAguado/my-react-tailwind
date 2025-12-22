@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Variables globales */
+:root {
+    --color-primary: #f9f506;
+    --color-background-light: #f8f8f5;
+    --color-text-main: #181811;
+    --color-text-sub: #8c8b5f;
+    --color-border-color: #e6e6db;
+
+    --font-display: "Spline Sans", "Noto Sans", sans-serif;
+
+    --radius-default: 1rem;
+}
+
+
+
