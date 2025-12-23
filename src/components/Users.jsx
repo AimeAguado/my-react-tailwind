@@ -28,6 +28,7 @@ export default function Users() {
             headers: { Authorization: "Bearer " + token },
         }
         );
+    
 
         cargarUsers();
     }
@@ -58,9 +59,8 @@ export default function Users() {
                 <td className="px-6 py-4 text-right">
                 <button
                     onClick={() => borrarUsuario(user._id)}
-                    className="size-8 rounded-full hover:bg-red-500 hover:text-white"
-                >
-                    🗑
+                    className="size-8 rounded-full hover:bg-red-500 hover:text-white">
+                        eliminar
                 </button>
                 </td>
             </tr>
