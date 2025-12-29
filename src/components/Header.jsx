@@ -1,78 +1,90 @@
-function Header({text}) {
+import Notifications from "./notifications";
 
-  
+const styleFoto = { backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuAO11dy2wOWES_JCPSilICBk_4K9kfbE8bth7rWPUEW8Dp4dZCmCPhjDvyz5w0J8qklWsWZXEBGYnagurzYiQ_bXTSEX1J25bc1MCeC6APzt-KCzUq2zXMym39b1aOa-jiyU596szXt8qV7fc_FmfOohZQn0hoCH-MSq_hSyaJRV7yDL6_SQ_fcjwhdthYs6_PiW4RAef8LNsyzhSowy_IPQUb4yUoz1sWxSVumbhCtg1N7g31pzcBjmEUVH_eiNTH4sC3W7E-GOxo")'}
+
+function Header({ notifications, countNoLeidas, cargarNotificaciones, userName}) {
     return (
-     <header class="sticky top-0 z-30 flex items-center justify-between border-b border-solid border-border-color dark:border-surface-dark bg-white dark:bg-background-dark px-6 py-4 lg:px-10">
-<div class="flex items-center gap-4 text-text-main dark:text-white">
-<div class="flex items-center justify-center size-10 rounded-full bg-primary text-black">
-<span class="material-symbols-outlined">dashboard</span>
-</div>
-<h2 class="text-xl font-bold leading-tight tracking-tight">AdminPanel</h2>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden md:flex items-center gap-3">
-<div class="flex flex-col items-end">
-    <span id="saludo" class="text-sm font-bold leading-none">
-        Hola
-    </span>
-<span class="text-xs text-text-sub dark:text-gray-400">Super Admin</span>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="Portrait of admin user John Doe"></div>
-</div>
+        <header className="sticky top-0 z-30 flex items-center justify-between border-b border-solid border-border-color bg-white px-6 py-4 lg:px-10">
 
-<div class="relative group">
-<button id="btn-notification" class="relative flex items-center justify-center size-10 rounded-full bg-surface-light dark:bg-surface-dark border border-border-color dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-<span class="material-symbols-outlined text-text-main dark:text-white">notifications</span>
-<span class="absolute top-2 right-2 size-2.5 bg-red-500 border-2 border-white dark:border-background-dark rounded-full"></span>
-</button>
-<div id="notificaciones" class="absolute right-0 top-full mt-3 w-80 sm:w-96 p-4 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right">
-<div class="bg-white dark:bg-surface-dark rounded-xl shadow-xl border border-border-color dark:border-gray-700 overflow-hidden">
-<div class="p-4 border-b border-border-color dark:border-gray-700 flex justify-between items-center">
-<h3 class="font-bold text-sm">Notifications</h3>
-<button class="text-xs text-text-sub hover:text-primary transition-colors">Mark all read</button>
-</div>
-<div class="max-h-[300px] overflow-y-auto">
-<div id="lista-notificaciones" class="p-4 border-b border-border-color dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-black/20 transition-colors">
-<div class="flex gap-3">
-<div class="size-8 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[18px]">info</span>
-</div>
-<div class="flex-1 space-y-2">
-<p class="text-sm font-medium text-text-main dark:text-white leading-tight">System Maintenance</p>
-<p class="text-xs text-text-sub dark:text-gray-400">Scheduled downtime tonight at 2:00 AM EST for 30 mins.</p>
-<div class="flex gap-2 pt-1">
-<button class="text-[10px] font-bold uppercase tracking-wide px-3 py-1 rounded-full bg-primary text-black hover:bg-yellow-400 transition-colors">Read</button>
-<button class="text-[10px] font-bold uppercase tracking-wide px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-text-sub hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Delete</button>
-</div>
-</div>
-</div>
-</div>
-<div class="p-4 hover:bg-gray-50 dark:hover:bg-black/20 transition-colors">
-<div class="flex gap-3">
-<div class="size-8 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center shrink-0">
-<span class="material-symbols-outlined text-[18px]">person_add</span>
-</div>
-<div class="flex-1 space-y-2">
-<p class="text-sm font-medium text-text-main dark:text-white leading-tight">New User Registration</p>
-<p class="text-xs text-text-sub dark:text-gray-400">Anna Karenina has requested access.</p>
-<div class="flex gap-2 pt-1">
-<button id="" class="text-[10px] font-bold uppercase tracking-wide px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-text-main dark:text-white hover:bg-primary hover:text-black transition-colors">Read</button>
-<button class="text-[10px] font-bold uppercase tracking-wide px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-text-sub hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Delete</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="p-3 bg-gray-50 dark:bg-black/20 text-center">
-<button class="text-xs font-bold text-text-main dark:text-white hover:underline">View All Activity</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</header>
+        <div className="flex items-center gap-4 text-text-main">
+            <div className="flex items-center justify-center size-10 rounded-full bg-primary text-black">
+            <span className="material-symbols-outlined">dashboard</span>
+            </div>
+            <h2 className="text-xl font-bold text-black leading-tight tracking-tight">
+            AdminPanel
+            </h2>
+        </div>
 
-    )
+        <div className="flex items-center gap-6">
+
+            <div className="md:flex items-center gap-3">
+            <div className="flex flex-col items-end">
+                <span id="saludo" className="text-sm font-bold leading-none">
+                Hola
+                </span>
+                <span className="text-xs text-text-sub text-main">
+                {userName}
+                </span>
+            </div>
+            <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="Portrait of admin user John Doe" style={styleFoto}></div>
+            </div>
+
+            <div className="relative group">
+            <button
+                id="btn-notification"
+                className="relative flex items-center justify-center size-10 rounded-full
+                            bg-surface-light border border-border-color
+                            hover:bg-gray-50 transition-colors"
+                >
+                <span className="material-symbols-outlined text-text-main">
+                    notifications
+                </span>
+
+                {countNoLeidas >0 && <span
+                    className="absolute -top-1 -right-1
+                            flex items-center justify-center
+                            min-w-[18px] h-[18px]
+                            px-1
+                            bg-red-500
+                            text-white text-[10px] font-semibold
+                            border-2 border-white
+                            rounded-full"
+                >
+                    {countNoLeidas}
+                </span>}
+                </button>
+
+
+            <div
+                id="notificaciones"
+                className="absolute right-0 top-full mt-3 w-80 sm:w-96 p-4 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top-right"
+            >
+                <div className="bg-white rounded-xl shadow-xl border border-border-color overflow-hidden">
+
+                <div className="p-4 border-b border-border-color flex justify-between items-center">
+                    <h3 className="font-bold text-sm">Notifications</h3>
+                    <button className="text-xs text-text-sub hover:text-primary transition-colors">
+                    Mark all read
+                    </button>
+                </div>
+
+                <div className="max-h-[300px] overflow-y-auto">
+                    <Notifications notifications={notifications} cargarNotificaciones={cargarNotificaciones} />
+                </div>
+
+                <div className="p-3 bg-gray-50 text-center">
+                    <button className="text-xs font-bold text-text-main hover:underline">
+                    View All Activity
+                    </button>
+                </div>
+
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </header>
+    );
 }
 
-export default Header
+export default Header;

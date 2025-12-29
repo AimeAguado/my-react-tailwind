@@ -1,23 +1,4 @@
-import { useEffect, useState } from "react";
-
-export default function Notifications() {
-    const [notificaciones, setNotificaciones] = useState([]);
-
-    useEffect(() => {
-        cargarNotificaciones();
-    }, []);
-
-    async function cargarNotificaciones() {
-        const token = localStorage.getItem("token");
-
-        const res = await fetch(
-        "https://back-nest-xi.vercel.app/notifications",
-        { headers: { Authorization: "Bearer " + token } }
-        );
-
-        const data = await res.json();
-        setNotificaciones(data);
-    }
+export default function Notifications({notifications, cargarNotificaciones }) {
 
     async function marcarLeida(id) {
         const token = localStorage.getItem("token");
@@ -47,34 +28,64 @@ export default function Notifications() {
         cargarNotificaciones();
     }
 
-    return (
-        <ul className="divide-y">
-        {notificaciones.map(n => (
-            <li key={n._id} className="p-4 flex gap-3">
-            <div className="flex-1">
-                <p className="font-medium">{n.title}</p>
-                <p className="text-xs text-text-sub">{n.description}</p>
+   return (
+  <ul className="divide-y">
+    {notifications.map((n) => (
+      <li
+        key={n._id}
+        className="p-4 border-b border-border-color
+                   hover:bg-gray-50 transition-colors"
+      >
+        <div className="flex gap-3">
+          {/* Icono */}
+          <div className="size-8 rounded-full bg-blue-100
+                          text-blue-600
+                          flex items-center justify-center shrink-0">
+            <span className="material-symbols-outlined text-[18px]">
+              info
+            </span>
+          </div>
 
-                <div className="flex gap-2 mt-2">
-                {!n.read && (
-                    <button
-                    onClick={() => marcarLeida(n._id)}
-                    className="px-3 py-1 text-xs bg-primary rounded-full"
-                    >
-                    Read
-                    </button>
-                )}
+          {/* Contenido */}
+          <div className="flex-1 space-y-2">
+            <p className="text-sm font-medium text-text-main leading-tight">
+              {n.title}
+            </p>
 
+            <p className="text-xs text-text-sub">
+              {n.description}
+            </p>
+
+            {/* Acciones */}
+            <div className="flex gap-2 pt-1">
+              {!n.read && (
                 <button
-                    onClick={() => eliminar(n._id)}
-                    className="px-3 py-1 text-xs bg-gray-200 rounded-full"
+                  onClick={() => marcarLeida(n._id)}
+                  className="text-[10px] font-bold uppercase tracking-wide
+                             px-3 py-1 rounded-full
+                             bg-primary text-black
+                             hover:bg-yellow-400 transition-colors"
                 >
-                    Delete
+                  Read
                 </button>
-                </div>
+              )}
+
+              <button
+                onClick={() => eliminar(n._id)}
+                className="text-[10px] font-bold uppercase tracking-wide
+                           px-3 py-1 rounded-full
+                           bg-gray-100
+                           text-text-sub
+                           hover:bg-gray-200 transition-colors"
+              >
+                Delete
+              </button>
             </div>
-            </li>
-        ))}
-        </ul>
-    );
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+);
+
 }

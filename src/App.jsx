@@ -1,19 +1,21 @@
 import './App.css'
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import { useState } from "react";
-import Register from './components/Register';
+import Register from './pages/Register';
+import NotFound from './pages/NotFound';
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home';
 
 function App() {
-    const [showRegister, setShowRegister] = useState(false);
-
     return (
-        <div>
-            {showRegister ? (
-                <Register goToLogin={setShowRegister} /> 
-            ) : (
-                <Login goToRegister={setShowRegister} />
-            )}
-        </div>
+        <>
+        <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
+    </>
 )
 }
 

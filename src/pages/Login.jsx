@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
 function Login({goToRegister}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate()
 
 
     async function login() {
@@ -15,8 +17,13 @@ function Login({goToRegister}) {
         });
 
         const data = await res.json();
-        localStorage.setItem("token", data.access_token);
-        setIsLogged(true);
+        await localStorage.setItem("user", JSON.stringify(data.user));
+        await localStorage.setItem("token", data.access_token);
+        navigate("/home")
+    }
+
+    function goToRegister(){
+        navigate("/register")
     }
 
     return (
@@ -36,7 +43,7 @@ function Login({goToRegister}) {
                 <button onClick={() => login()} class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 w-full my-6 rounded">
                     Log in
                 </button>
-                <p className="text-center text-gray-500 text-sm">Don't have an account? <span onClick={()=> goToRegister(true)} className="text-blue-500 cursor-pointer">Sign up</span></p>
+                <p className="text-center text-gray-500 text-sm">Don't have an account? <span onClick={()=> goToRegister()} className="text-blue-500 cursor-pointer">Sign up</span></p>
             </div>
     );
 }

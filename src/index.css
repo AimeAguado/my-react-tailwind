@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-/* Variables globales */
-:root {
+@theme {
     --color-primary: #f9f506;
     --color-background-light: #f8f8f5;
     --color-text-main: #181811;

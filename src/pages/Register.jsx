@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 
-function Register({goToLogin}) {
+function Register() {
     const [countries, setCountries] = useState([]);  
     const [countryCode, setCountryCode] = useState("");  
     const [nombre, setName] = useState("");
     const [apellido, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate()
 
     useEffect(() => {
         cargarPaises();
@@ -50,12 +52,17 @@ function Register({goToLogin}) {
     }
 
     alert("Registro exitoso");
-    console.log("Volviendo al login");
-    goToLogin(false);
+    await localStorage.setItem("user", JSON.stringify(data.user));
+    await localStorage.setItem("token", data.access_token)
+    navigate("/home")
   } catch (error) {
     console.error("Error catch:", error);
     alert("Error del servidor");
   }
+}
+
+function goToLogin(){
+  navigate("/")
 }
 
     return (
@@ -86,7 +93,7 @@ function Register({goToLogin}) {
                     <input id="register-password" type="password" onChange={(e)=> setPassword(e.target.value)} className="border border-gray-300 flex p-1 rounded w-full "/>
                 </div>
                 <button onClick={()=>handleRegister()} className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 w-full my-6 rounded"> Register </button>
-                <button onClick={()=>goToLogin(false)} className="text-blue-500 mt-4">
+                <button onClick={()=>goToLogin()} className="text-blue-500 mt-4">
                     Volver al login
                 </button>
             </div>
